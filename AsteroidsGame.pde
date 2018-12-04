@@ -1,5 +1,5 @@
 Spaceship bob = new Spaceship();
-Asteroid[] sue = new Asteroid[30];
+ArrayList <Asteroid> rocks = new ArrayList <Asteroid>();
 Star[] nightSky = new Star[1000];
 Star[] smallStar = new littleStar[1000];
 public void setup() 
@@ -15,9 +15,9 @@ public void setup()
   {
     smallStar[i] = new littleStar();
   }
-  for(int i = 0; i < sue.length; i++)
+  for(int i = 0; i < 30; i++)
   {
-    sue[i] = new Asteroid();
+    rocks.add(new Asteroid());
   }
   bob.setDirectionX(0);
   bob.setDirectionY(0);
@@ -33,14 +33,20 @@ public void draw()
   {
     smallStar[i].show();
   }
+  for(int i = 0; i < rocks.size(); i++)
+  {
+    rocks.get(i).move();
+    rocks.get(i).show();
+    float d = dist(bob.getX(), bob.getY(), rocks.get(i).getX(), rocks.get(i).getY());
+    if (d < 10)
+    {
+      rocks.remove(i);
+    }
   bob.show();
   bob.move();
-  for(int i =0; i < sue.length; i++)
-  {
-    sue[i].show();
-    sue[i].move();
   }
 }
+  
 public void keyPressed(){
   if(key == 'h'){
     bob.setDirectionX(0);
@@ -51,5 +57,5 @@ public void keyPressed(){
   }
   if(key == '4'){bob.turn(-50);}
   if(key == '6'){bob.turn(50);}
-  if(key == '5'){bob.accelerate(5);}
+  if(key == '5'){bob.accelerate(1);}
 }
